@@ -4,25 +4,13 @@ using Newtonsoft.Json;
 using System.Text;
 using System.Text.Json;
 
-string pathTxt = "C:\\Users\\marketa.zemlova\\Visual Studio 2023\\C sharp 2\\HW5_Real_Dictionary_&_Dictionary_File\\DictionaryTxt.txt";
 string pathJson = "C:\\Users\\marketa.zemlova\\Visual Studio 2023\\C sharp 2\\HW5_Real_Dictionary_&_Dictionary_File\\DictionaryJson.json";
 bool isOver = false;
 
-Dictionary<string, string> realDictionary = new Dictionary<string, string>() {
-    {"palmy","1 - vzkvétající, prosperující\t2 - palmový, plný palem" },
-    {"parallelogram","rovnoběžník (v geometrii)" },
-    {"paperhanging", "tapetování"},
-    {"paper tiger","politická loutka (zdánlivě mocná osoba)" },
-    {"dibber","sázecí kolík, udělat díru sázaecím kolíkem" },
-    {"devil","1 - the Devil - ďábel, Satan > Go to the devil. Jdi k čertu.\t2 - démon, zlý duch, čert\t3 - (expr.) poor devil - chudák, nešťastník / You lucky devil! Ty máš, ale štěstí. Ty jsi klikař!\t4 - better the devil you know(than the devil you don't know) Lepší čelit zlu, které znáš.  " },
-    {"snowdrift","sněhová závěj" },
-    {"rubbishy","bídný, mizerný, prachšpatný" },
-    {"lout","hulvát, nevychovanec, klacek" },
-    {"eager","1 - (celý) nedočkavý\t2 - eager to do sth - dychtivý po čem, nedočkavý, nažhavený na co; He was eager to do it. Byl celý žhavý to dělat." },
-    {"window shade","roleta" },
-    {"winset","zubr" },
-    {"abrasion","1 - odřenina, oděrka (na těle)\t2 - odření, odírání, broušení\t3 - geol. abraze obrušování " }
-};
+// nacti input jako string z JSON souboru 
+string input = File.ReadAllText(pathJson);
+Dictionary<string, string> realDictionary = JsonConvert.DeserializeObject<Dictionary<string, string>>(input);
+
 while (!isOver)
 {
     //Menu
@@ -73,12 +61,12 @@ while (!isOver)
             File.WriteAllText(pathJson, output);
             break;
 
-        // Cteni ze souboru JSON
-        // nacti output jako string se souboru a vypis na konzoli
+        // opetovne nacteni ze souboru JSON
+        // nacti output jako string ze souboru a vypis na konzoli
         case 5:
-            string input = File.ReadAllText(pathJson);
-            Dictionary<string, string> copyOfrealDictionary = JsonConvert.DeserializeObject<Dictionary<string, string>>(input);
-            Console.WriteLine(input);
+            //input = File.ReadAllText(pathJson);
+            realDictionary = JsonConvert.DeserializeObject<Dictionary<string, string>>(input);
+            
             
 
             break;
