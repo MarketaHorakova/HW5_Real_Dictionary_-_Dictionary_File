@@ -1,7 +1,11 @@
 ﻿
+//using HW5_Real_Dictionary___Dictionary_File;
+using Newtonsoft.Json;
 using System.Text;
+using System.Text.Json;
 
-string path = "C:\\Users\\marketa.zemlova\\Visual Studio 2023\\C sharp 2\\HW5_Real_Dictionary_&_Dictionary_File\\Dictionary.txt";
+string pathTxt = "C:\\Users\\marketa.zemlova\\Visual Studio 2023\\C sharp 2\\HW5_Real_Dictionary_&_Dictionary_File\\DictionaryTxt.txt";
+string pathJson = "C:\\Users\\marketa.zemlova\\Visual Studio 2023\\C sharp 2\\HW5_Real_Dictionary_&_Dictionary_File\\DictionaryJson.json";
 bool isOver = false;
 
 Dictionary<string, string> realDictionary = new Dictionary<string, string>() {
@@ -60,17 +64,23 @@ while (!isOver)
             string removeKey = Console.ReadLine();
             realDictionary.Remove(removeKey);
             break;
-        //Store dictionary to file
 
-        // Vymyslet efektivní způsob zápisu do douboru! - pole o 2 prvcích? 
+
+        // Zapis do souboru pomoci JSON
+        // uloz string output do souboru
         case 4:
-            StringBuilder builderDictionary = new StringBuilder();
-            foreach (KeyValuePair<string, string> statementValue in realDictionary) 
-            { 
-                builderDictionary.AppendLine($"{{{statementValue.Key}}},{{{statementValue.Value}}}");
+            string output = JsonConvert.SerializeObject(realDictionary);
+            File.WriteAllText(pathJson, output);
+            break;
 
-            }
-            File.WriteAllText(path, builderDictionary.ToString());
+        // Cteni ze souboru JSON
+        // nacti output jako string se souboru a vypis na konzoli
+        case 5:
+            string input = File.ReadAllText(pathJson);
+            Dictionary<string, string> copyOfrealDictionary = JsonConvert.DeserializeObject<Dictionary<string, string>>(input);
+            Console.WriteLine(input);
+            
+
             break;
     }
 
